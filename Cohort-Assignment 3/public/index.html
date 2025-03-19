@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote of the Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        .quote-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .body-font {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .animate-fade {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes slideOut {
+            0% { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% { 
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+        }
+
+        @keyframes slideIn {
+            0% { 
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-out {
+            animation: slideOut 0.5s ease-out forwards;
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bg-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(30, 64, 175, 0.95), rgba(147, 51, 234, 0.95)),
+                url('https://source.unsplash.com/1600x900/?abstract,texture');
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        .quote-container {
+            transition: transform 0.3s ease;
+        }
+
+        .quote-container:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-pattern flex items-center justify-center p-4 body-font">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M0 0h20v20H0z\" fill=\"%23fff\" fill-opacity=\"0.05\"/%3E%3C/svg%3E')] bg-repeat opacity-10"></div>
+    </div>
+    
+    <div class="max-w-2xl w-full relative">
+        <div id="quote-container" class="bg-white bg-opacity-95 rounded-2xl shadow-2xl p-10 backdrop-blur-lg border border-white border-opacity-20 transform transition-all duration-300 hover:shadow-3xl quote-container">
+            <div class="absolute -top-4 -left-4 w-12 h-12 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                <i class="fas fa-quote-left text-2xl text-white"></i>
+            </div>
+            
+            <div id="quote-content" class="mb-8 overflow-hidden">
+                <blockquote class="text-3xl quote-font mb-6 leading-relaxed text-gray-800 italic" id="quote-text">
+                    Loading quote...
+                </blockquote>
+                <p class="text-right text-gray-600 font-medium text-lg" id="quote-author">- Author</p>
+            </div>
+            
+            <div id="button-container" class="flex flex-wrap gap-4 justify-center">
+                <button onclick="fetchNewQuote()" class="group bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-sync-alt group-hover:rotate-180 transition-transform duration-500"></i>
+                    <span>New Quote</span>
+                </button>
+                <button onclick="copyToClipboard()" class="group bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy</span>
+                </button>
+                <button onclick="shareOnTwitter()" class="group bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                    <i class="fab fa-twitter"></i>
+                    <span>Tweet</span>
+                </button>
+                <button onclick="exportQuote()" class="group bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-download"></i>
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
